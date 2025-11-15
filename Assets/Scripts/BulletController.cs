@@ -5,8 +5,9 @@ public class BulletController : MonoBehaviour
 
     public float moveSpeed, lifeTime;
 
-    public Rigidbody theRB; 
-    
+    public Rigidbody theRB;
+
+    public GameObject impactEffect; 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,7 +31,15 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        if (other.gameObject.tag == "Enemy") { 
+            
+            Destroy(other.gameObject);
+        
+        }
+
         Destroy(gameObject);
+        Instantiate(impactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
     }
 
 }
