@@ -7,7 +7,12 @@ public class BulletController : MonoBehaviour
 
     public Rigidbody theRB;
 
-    public GameObject impactEffect; 
+    public GameObject impactEffect;
+
+
+    public int damage = 1;
+
+    public bool damageEnemy, damagePlayer;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,10 +37,16 @@ public class BulletController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.tag == "Enemy") { 
-            
-            Destroy(other.gameObject);
+        if (other.gameObject.tag == "Enemy" && damageEnemy) {
+
+            //Destroy(other.gameObject);
+            other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(damage);
         
+        }
+
+        if(other.gameObject.tag == "Player" && damagePlayer)
+        {
+            Debug.Log("Hit Player at " + transform.position);
         }
 
         Destroy(gameObject);

@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    public static PlayerController instance;
+
     public float moveSpeed, gravityModifier, jumpForce, runSpeed = 15f; 
     public CharacterController characterController;
 
@@ -24,6 +26,10 @@ public class PlayerController : MonoBehaviour
 
     public Transform firePoint;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,7 +45,7 @@ public class PlayerController : MonoBehaviour
         Vector3 flatMove = new Vector3(moveInput.x, 0f, moveInput.z);
         float speed = flatMove.magnitude;
         anim.SetFloat("moveSpeed", speed);
-        Debug.Log("moveSpeed = " + speed);
+        
 
       
         float yStore = moveInput.y;
