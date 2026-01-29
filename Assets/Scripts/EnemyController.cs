@@ -118,48 +118,54 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                // Shooting burst time
-                shootTimeCounter -= Time.deltaTime;
 
-                if (shootTimeCounter > 0)
+                if (PlayerController.instance.gameObject.activeInHierarchy)
                 {
-                    fireCount -= Time.deltaTime;
 
-                    if (fireCount <= 0)
+
+                    // Shooting burst time
+                    shootTimeCounter -= Time.deltaTime;
+
+                    if (shootTimeCounter > 0)
                     {
-                        fireCount = fireRate; // reset timer
+                        fireCount -= Time.deltaTime;
 
-                        firePoint.LookAt(PlayerController.instance.transform.position);
-
-                        //check the angle of the player
-                        Vector3 targetDir = PlayerController.instance.transform.position - transform.position;
-                        float angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
-
-                        if (Mathf.Abs(angle) < 30f)
+                        if (fireCount <= 0)
                         {
-                            Instantiate(bullet, firePoint.position, firePoint.rotation);
+                            fireCount = fireRate; // reset timer
 
-                            anim.SetTrigger("fireShot");
-                        }
-                        else
-                        {
-                            shootWaitCounter = waitBetweenShots;
-                            shootTimeCounter = timeToShoot;
-                            fireCount = fireRate;
+                            firePoint.LookAt(PlayerController.instance.transform.position);
+
+                            //check the angle of the player
+                            Vector3 targetDir = PlayerController.instance.transform.position - transform.position;
+                            float angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
+
+                            if (Mathf.Abs(angle) < 30f)
+                            {
+                                Instantiate(bullet, firePoint.position, firePoint.rotation);
+
+                                anim.SetTrigger("fireShot");
+                            }
+                            else
+                            {
+                                shootWaitCounter = waitBetweenShots;
+                                shootTimeCounter = timeToShoot;
+                                fireCount = fireRate;
+                            }
+
+
                         }
 
-                        
+                        agent.destination = transform.position;
+
                     }
-
-                    agent.destination = transform.position;
-
-                }
-                else
-                {
-                    // Reset after shot burst finishes
-                    shootWaitCounter = waitBetweenShots;
-                    shootTimeCounter = timeToShoot;
-                    fireCount = fireRate; // Reset fire interval to avoid leftover values
+                    else
+                    {
+                        // Reset after shot burst finishes
+                        shootWaitCounter = waitBetweenShots;
+                        shootTimeCounter = timeToShoot;
+                        fireCount = fireRate; // Reset fire interval to avoid leftover values
+                    }
                 }
 
                 anim.SetBool("isMoving", false);
