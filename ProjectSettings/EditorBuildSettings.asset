@@ -15,6 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Demo.unity
     guid: 8f1a01e4b1a374aa6bfe472517a8a56e
   - enabled: 1
+    path: Assets/Scenes/Setup Scenes/Level 1.unity
+    guid: 8385f05232e310f4a9dd04a96bfb7b99
+  - enabled: 1
+    path: Assets/Scenes/Setup Scenes/Level 2.unity
+    guid: 76d96dfd3c15f384b98c2760244cbb4d
+  - enabled: 1
     path: Assets/Scenes/EndGame.unity
     guid: ba6c1b2e9af19234ab182c80da86ae33
   m_configObjects:
