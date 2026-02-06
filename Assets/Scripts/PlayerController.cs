@@ -5,10 +5,12 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController instance;
 
-    public float moveSpeed, gravityModifier, jumpForce, runSpeed = 15f; 
+    public float moveSpeed, gravityModifier, jumpForce, runSpeed = 15f;
+    public float sneakSpeed = 2f;
     public CharacterController characterController;
 
     private Vector3 moveInput;
+    public bool isSneaking { get; private set; }
 
     public Transform cameraTrans;
 
@@ -56,12 +58,19 @@ public class PlayerController : MonoBehaviour
         moveInput = horizontalMovment + verticalMovement;
         moveInput.Normalize();
         
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
+            isSneaking = true;
+            moveInput = moveInput * sneakSpeed;
+        }
+        else if (Input.GetKey(KeyCode.LeftShift))
+        {
+            isSneaking = false;
             moveInput = moveInput * runSpeed;
         }
         else
         {
+            isSneaking = false;
             moveInput = moveInput * moveSpeed;
         }
 

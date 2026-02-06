@@ -300,6 +300,10 @@ public class AudioOnlyEnemyCrowd : CrowdAgent
         if (PlayerController.instance == null || !playerIsMoving)
             return false;
 
+        // Player is silent when sneaking
+        if (PlayerController.instance.isSneaking)
+            return false;
+
         float distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
         
         if (playerIsRunning)
